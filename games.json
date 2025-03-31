@@ -1,0 +1,248 @@
+{
+  "games": [
+    {
+      "id": "throwdown",
+      "title": "Throwdown",
+      "subtitle": "Card Battle Adventure",
+      "shortDescription": "Experience an exciting card-based strategy game with unique characters, epic battles, and endless combinations!",
+      "description": "Throwdown is an intense card battle game where strategy and quick thinking are key. Collect powerful cards, build unbeatable decks, and challenge players from around the world in epic duels. With hundreds of unique cards to discover and countless combinations to master, no two battles are ever the same.",
+      "thumbnail": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Throwdown",
+      "mainImage": "https://via.placeholder.com/800x450/34495E/00FFFF?text=Throwdown+Main",
+      "screenshots": [
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Throwdown+Screenshot+1",
+          "alt": "Card selection screen",
+          "caption": "Build powerful decks from hundreds of unique cards"
+        },
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Throwdown+Screenshot+2",
+          "alt": "Battle arena",
+          "caption": "Engage in strategic battles with stunning visual effects"
+        }
+      ],
+      "category": "strategy",
+      "tags": ["card", "battle", "rpg", "multiplayer"],
+      "rating": 4.8,
+      "releaseDate": "2023-06-15",
+      "developer": {
+        "name": "CyberCard Studios",
+        "avatar": "https://via.placeholder.com/100x100/34495E/00FFFF?text=CS",
+        "title": "Lead Game Designer",
+        "quote": "We wanted to create a card game that's easy to learn but takes a lifetime to master. Every card interaction was meticulously balanced to ensure fair and exciting gameplay."
+      },
+      "highlights": [
+        "Collect over 500 unique cards with special abilities",
+        "Build custom decks with strategic combinations",
+        "Battle players worldwide in real-time PvP matches",
+        "Climb the competitive ranks and earn exclusive rewards",
+        "Regular content updates with new cards and game modes"
+      ],
+      "howToPlay": [
+        "Build your deck by selecting 30 cards from your collection",
+        "Draw cards each turn and manage your energy resources",
+        "Play cards strategically to counter your opponent's moves",
+        "Reduce your opponent's health to zero to win the match"
+      ],
+      "features": [
+        {
+          "title": "Deck Building",
+          "description": "Create powerful deck combinations from hundreds of unique cards"
+        },
+        {
+          "title": "PvP Battles",
+          "description": "Challenge players from around the world in real-time matches"
+        },
+        {
+          "title": "Tournaments",
+          "description": "Compete in regular tournaments for exclusive prizes and glory"
+        }
+      ],
+      "iframeUrl": "https://example.com/games/throwdown/",
+      "downloadUrl": "https://example.com/downloads/throwdown_client.zip",
+      "url": "games/throwdown.html"
+    },
+    {
+      "id": "cyber-legends",
+      "title": "Cyber Legends",
+      "subtitle": "Futuristic Team-Based Combat",
+      "shortDescription": "Join the futuristic team-based card combat in a dystopian cyber world!",
+      "description": "Cyber Legends combines card strategy with futuristic team-based combat. Set in a dystopian cyber world, you'll assemble a team of unique heroes, each with their own abilities and synergies. Engage in tactical 3v3 battles that require quick thinking and strategic planning to outmaneuver your opponents.",
+      "thumbnail": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Cyber+Legends",
+      "mainImage": "https://via.placeholder.com/800x450/34495E/00FFFF?text=Cyber+Legends+Main",
+      "screenshots": [
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Cyber+Legends+Screenshot+1",
+          "alt": "Hero selection screen",
+          "caption": "Choose from dozens of unique heroes with special abilities"
+        },
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Cyber+Legends+Screenshot+2",
+          "alt": "Team battle arena",
+          "caption": "Engage in fast-paced 3v3 team battles"
+        }
+      ],
+      "category": "action",
+      "tags": ["multiplayer", "battle", "card", "team-based"],
+      "rating": 4.6,
+      "releaseDate": "2023-09-22",
+      "developer": {
+        "name": "NeoTech Games",
+        "avatar": "https://via.placeholder.com/100x100/34495E/00FFFF?text=NT",
+        "title": "Creative Director",
+        "quote": "Cyber Legends was born from our love of both card games and team-based combat. We wanted to create something that rewards both strategic deck building and tactical real-time decisions."
+      },
+      "highlights": [
+        "Collect and upgrade 40+ unique heroes with different abilities",
+        "Assemble the perfect team with complementary strengths",
+        "Engage in fast-paced 3v3 team battles",
+        "Climb competitive ranks and earn exclusive cosmetics",
+        "Regular content updates with new heroes and game modes"
+      ],
+      "howToPlay": [
+        "Assemble your team by selecting 3 heroes from your collection",
+        "Position your heroes strategically on the battlefield",
+        "Cast ability cards to support your team and counter opponents",
+        "Coordinate with teammates to secure objectives and victory"
+      ],
+      "features": [
+        {
+          "title": "Hero Collection",
+          "description": "Collect and upgrade diverse heroes with unique abilities"
+        },
+        {
+          "title": "Team Battles",
+          "description": "Engage in strategic 3v3 real-time battles"
+        },
+        {
+          "title": "Competitive Leagues",
+          "description": "Climb the ranked ladder and earn exclusive rewards"
+        }
+      ],
+      "iframeUrl": "https://example.com/games/cyber-legends/",
+      "downloadUrl": "https://example.com/downloads/cyber_legends_client.zip",
+      "url": "games/cyber-legends.html"
+    },
+    {
+      "id": "block-bits",
+      "title": "Block Bits",
+      "subtitle": "Creative Mining Adventure",
+      "shortDescription": "Build, mine, and explore in this creative voxel-based adventure!",
+      "description": "Block Bits is an immersive voxel-based adventure where creativity knows no bounds. Mine resources, craft tools, build structures, and survive in a procedurally generated world full of danger and wonder. Whether you prefer to build magnificent structures, explore deep caves, or battle dangerous creatures, Block Bits offers endless possibilities.",
+      "thumbnail": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Block+Bits",
+      "mainImage": "https://via.placeholder.com/800x450/34495E/00FFFF?text=Block+Bits+Main",
+      "screenshots": [
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Block+Bits+Screenshot+1",
+          "alt": "Building a structure",
+          "caption": "Create magnificent structures block by block"
+        },
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Block+Bits+Screenshot+2",
+          "alt": "Cave exploration",
+          "caption": "Explore mysterious caves filled with valuable resources"
+        }
+      ],
+      "category": "adventure",
+      "tags": ["survival", "building", "exploration", "multiplayer"],
+      "rating": 4.9,
+      "releaseDate": "2022-11-10",
+      "developer": {
+        "name": "Cubic Studios",
+        "avatar": "https://via.placeholder.com/100x100/34495E/00FFFF?text=CS",
+        "title": "Technical Director",
+        "quote": "We believe in giving players complete freedom to express their creativity. Block Bits was designed to be a canvas where players can build anything they imagine while also enjoying survival and adventure elements."
+      },
+      "highlights": [
+        "Infinite procedurally generated worlds to explore",
+        "Gather resources and craft items to survive",
+        "Build anything from simple shelters to complex structures",
+        "Discover rare materials in dangerous cave systems",
+        "Join multiplayer servers and collaborate with friends"
+      ],
+      "howToPlay": [
+        "Gather resources by mining blocks in the world",
+        "Craft tools and items to help you survive",
+        "Build structures to protect yourself from dangers",
+        "Explore caves and dungeons for rare materials"
+      ],
+      "features": [
+        {
+          "title": "Creative Building",
+          "description": "Build anything you can imagine with thousands of block types"
+        },
+        {
+          "title": "Survival Gameplay",
+          "description": "Gather resources, craft items, and survive in a challenging world"
+        },
+        {
+          "title": "Multiplayer",
+          "description": "Join servers with friends and build collaborative projects"
+        }
+      ],
+      "iframeUrl": "https://example.com/games/block-bits/",
+      "downloadUrl": "https://example.com/downloads/block_bits_client.zip",
+      "url": "games/block-bits.html"
+    },
+    {
+      "id": "speed-racer",
+      "title": "Speed Racer",
+      "subtitle": "Futuristic Racing",
+      "shortDescription": "Race through neon-lit tracks in this high-speed futuristic racing game!",
+      "description": "Speed Racer is a high-octane futuristic racing game featuring antigravity vehicles and impossible tracks. Push the limits of speed as you race through neon-lit cityscapes, zero-gravity space stations, and otherworldly environments. Customize your vehicle, master boost mechanics, and compete against players worldwide for the title of ultimate Speed Racer.",
+      "thumbnail": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Speed+Racer",
+      "mainImage": "https://via.placeholder.com/800x450/34495E/00FFFF?text=Speed+Racer+Main",
+      "screenshots": [
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Speed+Racer+Screenshot+1",
+          "alt": "Antigravity racing",
+          "caption": "Experience thrilling antigravity racing action"
+        },
+        {
+          "url": "https://via.placeholder.com/400x200/34495E/00FFFF?text=Speed+Racer+Screenshot+2",
+          "alt": "Vehicle customization",
+          "caption": "Customize your vehicle with performance upgrades and skins"
+        }
+      ],
+      "category": "racing",
+      "tags": ["arcade", "multiplayer", "competition", "futuristic"],
+      "rating": 4.7,
+      "releaseDate": "2023-03-28",
+      "developer": {
+        "name": "Velocity Studios",
+        "avatar": "https://via.placeholder.com/100x100/34495E/00FFFF?text=VS",
+        "title": "Game Director",
+        "quote": "We wanted to create a racing game that defies physics and delivers pure adrenaline. Speed Racer pushes the boundaries of what's possible in racing games with its extreme speeds and impossible tracks."
+      },
+      "highlights": [
+        "Race on 25+ unique tracks across 5 fantastical environments",
+        "Choose from 15 antigravity vehicles with different specs",
+        "Customize your ride with performance parts and visual upgrades",
+        "Master the boost system and track-specific shortcuts",
+        "Compete in global tournaments with thousands of players"
+      ],
+      "howToPlay": [
+        "Choose your vehicle and customize it to suit your racing style",
+        "Learn each track's layout and discover hidden shortcuts",
+        "Collect boost energy during races to activate speed bursts",
+        "Compete against other players in real-time multiplayer races"
+      ],
+      "features": [
+        {
+          "title": "Antigravity Racing",
+          "description": "Experience high-speed racing that defies the laws of physics"
+        },
+        {
+          "title": "Track Variety",
+          "description": "Race on 25+ unique tracks across diverse environments"
+        },
+        {
+          "title": "Vehicle Customization",
+          "description": "Upgrade and personalize your vehicle for optimal performance"
+        }
+      ],
+      "iframeUrl": "https://example.com/games/speed-racer/",
+      "downloadUrl": "https://example.com/downloads/speed_racer_client.zip",
+      "url": "games/speed-racer.html"
+    }
+  ]
+} 
