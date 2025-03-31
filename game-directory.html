@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Directory - PLAY-FRENZY | Online Gaming Platform</title>
+    <meta name="description" content="PLAY-FRENZY offers a wide variety of online games. Browse our collection and play for free in your browser!">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#0F1B2B">
+    <meta name="msapplication-TileColor" content="#0F1B2B">
+    <meta name="theme-color" content="#0F1B2B">
+    <link rel="canonical" href="https://play-frenzy.com/games">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#0F1B2B',
+                        'cyber-purple': '#2C3E50',
+                        'cyber-black': '#000000',
+                        'neon-blue': '#00FFFF',
+                        'neon-green': '#39FF14',
+                        'neon-orange': '#FF6B35',
+                        'deep-purple': '#34495E'
+                    },
+                    fontFamily: {
+                        'manrope': ['Manrope', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #0F1B2B;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Particle effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* Binary code effect */
+        .binary-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 50%, rgba(0,255,255,0.05) 75%);
+            font-family: monospace;
+            font-size: 12px;
+            color: rgba(0,255,255,0.1);
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .binary-content {
+            animation: scrollBinary 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scrollBinary {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* Neon text effects */
+        .neon-text {
+            color: #00FFFF;
+            text-shadow: 0 0 8px rgba(0,255,255,0.3);
+            background: linear-gradient(90deg, #00FFFF, #39FF14);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Card styles */
+        .cyber-card {
+            background: rgba(44, 62, 80, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(0,255,255,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,255,255,0.2);
+        }
+
+        /* Button styles */
+        .cyber-button {
+            background: linear-gradient(45deg, #00FFFF, #39FF14);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #0F1B2B;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,255,255,0.5);
+        }
+
+        .cyber-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0,255,255,0.6);
+        }
+
+        .cyber-button:active {
+            transform: scale(0.95) translateY(2px);
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Game card hover effect */
+        .game-card {
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,255,255,0.3);
+        }
+        
+        /* Tag selection styles */
+        .tag-filter.active {
+            background-color: #39FF14;
+            color: #0F1B2B;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="particles" id="particles"></div>
+    <div class="binary-overlay">
+        <div class="binary-content">010101110010101010001111001010101</div>
+    </div>
+
+    <header class="relative z-10 bg-gradient-to-r from-cyber-dark to-cyber-purple shadow-lg">
+        <div class="container mx-auto px-4 py-6 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold tracking-tight neon-text">PLAY-FRENZY</h1>
+                    <p class="mt-2 text-lg text-neon-blue/80">Dive into endless cyber adventures!</p>
+                </div>
+                <nav class="mt-4 md:mt-0">
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-neon-green transition-colors">Home</a></li>
+                        <li><a href="#" class="text-neon-green transition-colors">Games</a></li>
+                        <li><a href="#about" class="hover:text-neon-green transition-colors">About</a></li>
+                        <li><a href="#contact" class="hover:text-neon-green transition-colors">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl relative z-10">
+        <!-- Hero Section -->
+        <section class="mb-12 reveal">
+            <div class="cyber-card p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 neon-text">Find Your Next Gaming Adventure</h2>
+                        <p class="text-lg text-neon-blue/90 mb-6">Browse our vast collection of free online games. From card battles to racing, adventure to puzzles - there's something for every type of player!</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#game-categories" class="cyber-button">Browse Games</a>
+                            <a href="#featured-games" class="px-6 py-3 bg-cyber-purple/60 hover:bg-cyber-purple text-white rounded-lg transition-colors font-semibold">Featured Games</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <img src="https://via.placeholder.com/600x400/34495E/00FFFF?text=PLAY-FRENZY+GAMES" alt="Play-Frenzy Games Collection" class="rounded-lg shadow-lg w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-black/70 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-300 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Games -->
+        <section id="featured-games" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 neon-text">Featured Games</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="featured-games-container">
+                    <!-- Featured games will be loaded here by JavaScript -->
+                    <div class="bg-cyber-purple/30 rounded-lg p-8 flex items-center justify-center">
+                        <div class="animate-pulse flex space-x-4">
+                            <div class="rounded-full bg-neon-blue/30 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-neon-blue/30 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-neon-blue/30 rounded"></div>
+                                    <div class="h-4 bg-neon-blue/30 rounded w-5/6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-purple/30 rounded-lg p-8 flex items-center justify-center">
+                        <div class="animate-pulse flex space-x-4">
+                            <div class="rounded-full bg-neon-blue/30 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-neon-blue/30 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-neon-blue/30 rounded"></div>
+                                    <div class="h-4 bg-neon-blue/30 rounded w-5/6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Categories -->
+        <section id="game-categories" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 neon-text">Game Categories</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="">
+                        <span class="text-lg font-bold text-neon-blue">All</span>
+                    </button>
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="strategy">
+                        <span class="text-lg font-bold text-neon-green">Strategy</span>
+                    </button>
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="action">
+                        <span class="text-lg font-bold text-neon-orange">Action</span>
+                    </button>
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="adventure">
+                        <span class="text-lg font-bold text-purple-400">Adventure</span>
+                    </button>
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="racing">
+                        <span class="text-lg font-bold text-yellow-400">Racing</span>
+                    </button>
+                    <button class="category-btn p-4 bg-cyber-purple/30 hover:bg-cyber-purple/60 rounded-lg transition-colors text-center" data-category="puzzle">
+                        <span class="text-lg font-bold text-pink-400">Puzzle</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Directory -->
+        <section class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold neon-text">All Games</h2>
+                    <div class="mt-4 md:mt-0 flex items-center">
+                        <div class="relative">
+                            <input type="text" id="game-search" placeholder="Search games..." class="w-64 p-3 bg-cyber-purple/30 border border-neon-blue/30 rounded-lg text-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-green">
+                            <button id="search-clear" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neon-blue/50 hover:text-neon-blue" style="display: none;">✕</button>
+                        </div>
+                        <select id="sort-games" class="ml-4 p-3 bg-cyber-purple/30 border border-neon-blue/30 rounded-lg text-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-green">
+                            <option value="rating">Top Rated</option>
+                            <option value="newest">Newest</option>
+                            <option value="name">Name (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-4 flex flex-wrap gap-2" id="tag-filters">
+                    <button class="px-3 py-1 bg-cyber-purple/40 hover:bg-cyber-purple/60 rounded-full text-neon-blue text-sm transition-colors tag-filter" data-tag="multiplayer">Multiplayer</button>
+                    <button class="px-3 py-1 bg-cyber-purple/40 hover:bg-cyber-purple/60 rounded-full text-neon-blue text-sm transition-colors tag-filter" data-tag="card">Card Games</button>
+                    <button class="px-3 py-1 bg-cyber-purple/40 hover:bg-cyber-purple/60 rounded-full text-neon-blue text-sm transition-colors tag-filter" data-tag="survival">Survival</button>
+                    <button class="px-3 py-1 bg-cyber-purple/40 hover:bg-cyber-purple/60 rounded-full text-neon-blue text-sm transition-colors tag-filter" data-tag="building">Building</button>
+                    <button class="px-3 py-1 bg-cyber-purple/40 hover:bg-cyber-purple/60 rounded-full text-neon-blue text-sm transition-colors tag-filter" data-tag="battle">Battle</button>
+                </div>
+                
+                <!-- Filter status message -->
+                <div id="filter-status" class="mb-4 p-2 bg-cyber-purple/20 rounded-lg text-neon-blue text-sm hidden"></div>
+                
+                <!-- Games container -->
+                <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Loading state -->
+                    <div class="bg-cyber-purple/30 rounded-lg p-8 flex items-center justify-center col-span-full h-64">
+                        <div class="flex flex-col items-center">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-neon-green mb-4"></div>
+                            <p class="text-neon-blue">Loading games...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Load more button -->
+                <div class="text-center mt-8">
+                    <button id="load-more-games" class="cyber-button" style="display:none;">Load More Games</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="mb-12 reveal">
+            <div class="cyber-card p-8 bg-gradient-to-r from-cyber-purple to-cyber-dark">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-3 neon-text">Stay Updated</h2>
+                        <p class="text-neon-blue/90 mb-6">Subscribe to our newsletter for the latest game releases, updates, and exclusive offers!</p>
+                    </div>
+                    <div>
+                        <form class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" placeholder="Your email address" class="flex-grow p-3 bg-cyber-black/50 border border-neon-blue/30 rounded-lg text-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-green">
+                            <button type="submit" class="cyber-button whitespace-nowrap">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-cyber-black text-white py-8 relative z-10">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">PLAY-FRENZY</h3>
+                    <p class="text-neon-blue/80">Your destination for the best cyber-gaming experiences.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-neon-blue/80 hover:text-neon-green transition-colors">Home</a></li>
+                        <li><a href="game-directory.html" class="text-neon-blue/80 hover:text-neon-green transition-colors">Games</a></li>
+                        <li><a href="#about" class="text-neon-blue/80 hover:text-neon-green transition-colors">About</a></li>
+                        <li><a href="#contact" class="text-neon-blue/80 hover:text-neon-green transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/privacy-policy" class="text-neon-blue/80 hover:text-neon-green transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service" class="text-neon-blue/80 hover:text-neon-green transition-colors">Terms of Service</a></li>
+                        <li><a href="/cookie-policy" class="text-neon-blue/80 hover:text-neon-green transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="h-px bg-gradient-to-r from-transparent via-neon-blue/30 to-transparent my-8"></div>
+            <div class="text-center text-neon-blue/60">
+                <p>&copy; 2023 PLAY-FRENZY.COM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * 游戏目录管理系统
+         * 负责加载、过滤和展示游戏目录
+         */
+        class GameCatalog {
+            /**
+             * 初始化游戏目录系统
+             * @param {Object} config - 配置选项
+             */
+            constructor(config) {
+                // DOM元素
+                this.gamesContainer = document.getElementById('games-container');
+                this.featuredContainer = document.getElementById('featured-games-container');
+                this.searchInput = document.getElementById('game-search');
+                this.searchClearBtn = document.getElementById('search-clear');
+                this.sortSelect = document.getElementById('sort-games');
+                this.loadMoreBtn = document.getElementById('load-more-games');
+                this.filterStatus = document.getElementById('filter-status');
+                this.categoryBtns = document.querySelectorAll('.category-btn');
+                this.tagBtns = document.querySelectorAll('.tag-filter');
+                
+                // 数据和状态
+                this.games = [];
+                this.filteredGames = [];
+                this.activeCategory = '';
+                this.activeTags = [];
+                this.searchQuery = '';
+                this.sortBy = 'rating'; // 默认排序
+                this.currentPage = 1;
+                this.gamesPerPage = 6;
+                this.isLoading = false;
+                
+                // 绑定方法到实例
+                this.loadGames = this.loadGames.bind(this);
+                this.renderGames = this.renderGames.bind(this);
+                this.filterGames = this.filterGames.bind(this);
+                this.loadMoreGames = this.loadMoreGames.bind(this);
+                this.handleSearch = this.handleSearch.bind(this);
+                this.handleSort = this.handleSort.bind(this);
+                this.handleCategoryFilter = this.handleCategoryFilter.bind(this);
+                this.handleTagFilter = this.handleTagFilter.bind(this);
+                this.clearSearch = this.clearSearch.bind(this);
+                this.updateFilterStatus = this.updateFilterStatus.bind(this);
+            }
+            
+            /**
+             * 初始化目录系统
+             */
+            initialize() {
+                // 加载游戏数据
+                this.loadGames();
+                
+                // 绑定事件监听器
+                this.setupEventListeners();
+            }
+            
+            /**
+             * 设置事件监听器
+             */
+            setupEventListeners() {
+                // 搜索框事件
+                if (this.searchInput) {
+                    this.searchInput.addEventListener('input', this.handleSearch);
+                }
+                
+                // 清除搜索按钮
+                if (this.searchClearBtn) {
+                    this.searchClearBtn.addEventListener('click', this.clearSearch);
+                }
+                
+                // 排序选择器事件
+                if (this.sortSelect) {
+                    this.sortSelect.addEventListener('change', this.handleSort);
+                }
+                
+                // 加载更多按钮
+                if (this.loadMoreBtn) {
+                    this.loadMoreBtn.addEventListener('click', this.loadMoreGames);
+                }
+                
+                // 分类按钮
+                this.categoryBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.handleCategoryFilter(btn.getAttribute('data-category'));
+                    });
+                });
+                
+                // 标签按钮
+                this.tagBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.handleTagFilter(btn.getAttribute('data-tag'));
+                    });
+                });
+            }
+            
+            /**
+             * 加载游戏数据
+             */
+            async loadGames() {
+                this.isLoading = true;
+                this.showLoadingState();
+                
+                try {
+                    // 从JSON文件加载游戏数据
+                    const response = await fetch('data/games.json');
+                    if (!response.ok) {
+                        throw new Error('加载游戏数据失败');
+                    }
+                    
+                    const data = await response.json();
+                    this.games = data.games;
+                    
+                    // 复制数据用于过滤
+                    this.filteredGames = [...this.games];
+                    
+                    // 应用默认排序
+                    this.sortGames();
+                    
+                    // 渲染游戏
+                    this.renderGames();
+                    
+                    // 加载精选游戏
+                    this.loadFeaturedGames();
+                } catch (error) {
+                    console.error('加载游戏数据失败:', error);
+                    this.showErrorState('无法加载游戏数据，请稍后再试。');
+                } finally {
+                    this.isLoading = false;
+                }
+            }
+            
+            /**
+             * 显示加载状态
+             */
+            showLoadingState() {
+                if (this.gamesContainer) {
+                    this.gamesContainer.innerHTML = `
+                        <div class="bg-cyber-purple/30 rounded-lg p-8 flex items-center justify-center col-span-full h-64">
+                            <div class="flex flex-col items-center">
+                                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-neon-green mb-4"></div>
+                                <p class="text-neon-blue">Loading games...</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            /**
+             * 显示错误状态
+             * @param {string} message - 错误信息
+             */
+            showErrorState(message) {
+                if (this.gamesContainer) {
+                    this.gamesContainer.innerHTML = `
+                        <div class="bg-cyber-purple/30 rounded-lg p-8 flex items-center justify-center col-span-full h-64">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="text-neon-orange text-4xl mb-4">⚠️</div>
+                                <p class="text-neon-orange font-bold mb-2">Error</p>
+                                <p class="text-neon-blue/90">${message}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            /**
+             * 处理搜索输入
+             */
+            handleSearch() {
+                this.searchQuery = this.searchInput.value.toLowerCase().trim();
+                
+                // 显示/隐藏清除按钮
+                if (this.searchQuery) {
+                    this.searchClearBtn.style.display = 'block';
+                } else {
+                    this.searchClearBtn.style.display = 'none';
+                }
+                
+                // 重置页码并过滤游戏
+                this.currentPage = 1;
+                this.filterGames();
+            }
+            
+            /**
+             * 清除搜索
+             */
+            clearSearch() {
+                if (this.searchInput) {
+                    this.searchInput.value = '';
+                    this.searchQuery = '';
+                    this.searchClearBtn.style.display = 'none';
+                    this.filterGames();
+                }
+            }
+            
+            /**
+             * 处理排序变更
+             */
+            handleSort() {
+                this.sortBy = this.sortSelect.value;
+                this.currentPage = 1;
+                this.sortGames();
+                this.renderGames();
+            }
+            
+            /**
+             * 排序游戏列表
+             */
+            sortGames() {
+                switch (this.sortBy) {
+                    case 'rating':
+                        this.filteredGames.sort((a, b) => b.rating - a.rating);
+                        break;
+                    case 'newest':
+                        this.filteredGames.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+                        break;
+                    case 'name':
+                        this.filteredGames.sort((a, b) => a.title.localeCompare(b.title));
+                        break;
+                    default:
+                        this.filteredGames.sort((a, b) => b.rating - a.rating);
+                }
+            }
+            
+            /**
+             * 处理分类过滤
+             * @param {string} category - 分类名称
+             */
+            handleCategoryFilter(category) {
+                this.activeCategory = category;
+                
+                // 更新UI状态
+                this.categoryBtns.forEach(btn => {
+                    const btnCategory = btn.getAttribute('data-category');
+                    if (btnCategory === category) {
+                        btn.classList.add('bg-neon-green', 'text-cyber-black');
+                        btn.classList.remove('bg-cyber-purple/30', 'hover:bg-cyber-purple/60');
+                    } else {
+                        btn.classList.remove('bg-neon-green', 'text-cyber-black');
+                        btn.classList.add('bg-cyber-purple/30', 'hover:bg-cyber-purple/60');
+                    }
+                });
+                
+                // 重置页码并过滤游戏
+                this.currentPage = 1;
+                this.filterGames();
+            }
+            
+            /**
+             * 处理标签过滤
+             * @param {string} tag - 标签名称
+             */
+            handleTagFilter(tag) {
+                const tagIndex = this.activeTags.indexOf(tag);
+                
+                // 切换标签选择状态
+                if (tagIndex > -1) {
+                    this.activeTags.splice(tagIndex, 1);
+                } else {
+                    this.activeTags.push(tag);
+                }
+                
+                // 更新UI状态
+                this.tagBtns.forEach(btn => {
+                    const btnTag = btn.getAttribute('data-tag');
+                    if (this.activeTags.includes(btnTag)) {
+                        btn.classList.add('bg-neon-green', 'text-cyber-black');
+                        btn.classList.remove('bg-cyber-purple/40', 'text-neon-blue');
+                    } else {
+                        btn.classList.remove('bg-neon-green', 'text-cyber-black');
+                        btn.classList.add('bg-cyber-purple/40', 'text-neon-blue');
+                    }
+                });
+                
+                // 重置页码并过滤游戏
+                this.currentPage = 1;
+                this.filterGames();
+            }
+            
+            /**
+             * 过滤游戏列表
+             */
+            filterGames() {
+                this.filteredGames = this.games.filter(game => {
+                    // 搜索过滤
+                    if (this.searchQuery && 
+                        !game.title.toLowerCase().includes(this.searchQuery) && 
+                        !game.shortDescription.toLowerCase().includes(this.searchQuery) &&
+                        !game.category.toLowerCase().includes(this.searchQuery)) {
+                        return false;
+                    }
+                    
+                    // 分类过滤
+                    if (this.activeCategory && game.category !== this.activeCategory) {
+                        return false;
+                    }
+                    
+                    // 标签过滤
+                    if (this.activeTags.length > 0) {
+                        // 游戏必须包含所有选定的标签
+                        return this.activeTags.every(tag => game.tags.includes(tag));
+                    }
+                    
+                    return true;
+                });
+                
+                // 应用排序
+                this.sortGames();
+                
+                // 更新过滤状态消息
+                this.updateFilterStatus();
+                
+                // 重新渲染游戏
+                this.renderGames();
+            }
+            
+            /**
+             * 更新过滤状态消息
+             */
+            updateFilterStatus() {
+                if (!this.filterStatus) return;
+                
+                if (this.searchQuery || this.activeCategory || this.activeTags.length > 0) {
+                    let message = `显示 ${this.filteredGames.length} 个游戏`;
+                    
+                    const filters = [];
+                    if (this.searchQuery) {
+                        filters.push(`搜索："${this.searchQuery}"`);
+                    }
+                    if (this.activeCategory) {
+                        filters.push(`分类："${this.activeCategory}"`);
+                    }
+                    if (this.activeTags.length > 0) {
+                        filters.push(`标签：${this.activeTags.map(tag => `"${tag}"`).join(', ')}`);
+                    }
+                    
+                    if (filters.length > 0) {
+                        message += ` (${filters.join(' | ')})`;
+                    }
+                    
+                    this.filterStatus.textContent = message;
+                    this.filterStatus.classList.remove('hidden');
+                } else {
+                    this.filterStatus.classList.add('hidden');
+                }
+            }
+            
+            /**
+             * 渲染游戏列表
+             */
+            renderGames() {
+                if (!this.gamesContainer) return;
+                
+                // 计算当前页应显示的游戏
+                const startIndex = 0;
+                const endIndex = Math.min(this.currentPage * this.gamesPerPage, this.filteredGames.length);
+                const gamesToShow = this.filteredGames.slice(startIndex, endIndex);
+                
+                // 检查是否有游戏
+                if (this.filteredGames.length === 0) {
+                    this.gamesContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <div class="text-neon-blue text-5xl mb-4">😕</div>
+                            <h3 class="text-xl text-neon-green mb-3">No Games Found</h3>
+                            <p class="text-neon-blue/90 mb-6">Try adjusting your search criteria or filters.</p>
+                            <button id="reset-filters" class="cyber-button">Reset All Filters</button>
+                        </div>
+                    `;
+                    
+                    // 添加重置过滤器的事件监听器
+                    document.getElementById('reset-filters')?.addEventListener('click', () => {
+                        this.resetAllFilters();
+                    });
+                    
+                    // 隐藏加载更多按钮
+                    if (this.loadMoreBtn) {
+                        this.loadMoreBtn.style.display = 'none';
+                    }
+                    
+                    return;
+                }
+                
+                // 渲染游戏卡片
+                this.gamesContainer.innerHTML = gamesToShow.map(game => this.createGameCard(game)).join('');
+                
+                // 更新加载更多按钮状态
+                if (this.loadMoreBtn) {
+                    if (endIndex < this.filteredGames.length) {
+                        this.loadMoreBtn.style.display = 'inline-block';
+                    } else {
+                        this.loadMoreBtn.style.display = 'none';
+                    }
+                }
+                
+                // 为游戏卡片添加事件监听器
+                document.querySelectorAll('.game-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const gameUrl = card.getAttribute('data-url');
+                        if (gameUrl) {
+                            window.location.href = gameUrl;
+                        }
+                    });
+                });
+            }
+            
+            /**
+             * 创建游戏卡片HTML
+             * @param {Object} game - 游戏数据
+             * @returns {string} 游戏卡片HTML
+             */
+            createGameCard(game) {
+                return `
+                    <div class="game-card bg-cyber-black/40 rounded-lg overflow-hidden shadow-lg cursor-pointer" data-url="${game.url}">
+                        <div class="relative">
+                            <img src="${game.thumbnail}" alt="${game.title}" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent opacity-60"></div>
+                            <div class="absolute top-2 right-2 bg-neon-green text-cyber-black text-sm font-bold px-2 py-1 rounded-full flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                ${game.rating}
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <h3 class="text-white font-bold text-lg">${game.title}</h3>
+                                <p class="text-neon-blue/90 text-sm">${game.subtitle}</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-neon-blue/90 text-sm mb-3">${game.shortDescription}</p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                ${game.tags.map(tag => `<span class="text-xs bg-cyber-purple/50 text-neon-blue px-2 py-1 rounded">${tag}</span>`).join('')}
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-neon-orange text-sm">${game.category}</span>
+                                <button class="px-4 py-2 bg-cyber-purple/60 hover:bg-cyber-purple text-white rounded transition-colors text-sm">Play Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            /**
+             * 加载更多游戏
+             */
+            loadMoreGames() {
+                this.currentPage++;
+                this.renderGames();
+            }
+            
+            /**
+             * 重置所有过滤器
+             */
+            resetAllFilters() {
+                // 重置搜索
+                if (this.searchInput) {
+                    this.searchInput.value = '';
+                    this.searchQuery = '';
+                    this.searchClearBtn.style.display = 'none';
+                }
+                
+                // 重置分类
+                this.activeCategory = '';
+                this.categoryBtns.forEach(btn => {
+                    btn.classList.remove('bg-neon-green', 'text-cyber-black');
+                    btn.classList.add('bg-cyber-purple/30', 'hover:bg-cyber-purple/60');
+                });
+                
+                // 重置标签
+                this.activeTags = [];
+                this.tagBtns.forEach(btn => {
+                    btn.classList.remove('bg-neon-green', 'text-cyber-black');
+                    btn.classList.add('bg-cyber-purple/40', 'text-neon-blue');
+                });
+                
+                // 重置排序
+                if (this.sortSelect) {
+                    this.sortSelect.value = 'rating';
+                    this.sortBy = 'rating';
+                }
+                
+                // 重置页码
+                this.currentPage = 1;
+                
+                // 更新过滤和渲染
+                this.filterGames();
+            }
+            
+            /**
+             * 加载精选游戏
+             */
+            loadFeaturedGames() {
+                if (!this.featuredContainer) return;
+                
+                // 选择评分最高的两个游戏作为精选游戏
+                const featuredGames = [...this.games]
+                    .sort((a, b) => b.rating - a.rating)
+                    .slice(0, 2);
+                
+                // 渲染精选游戏
+                this.featuredContainer.innerHTML = featuredGames.map(game => {
+                    return `
+                        <div class="cyber-card p-0 overflow-hidden cursor-pointer featured-game" data-url="${game.url}">
+                            <div class="relative">
+                                <img src="${game.mainImage || game.thumbnail}" alt="${game.title}" class="w-full h-64 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-cyber-black via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 right-0 p-6">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span class="bg-neon-orange text-white text-xs font-bold px-2 py-1 rounded">${game.category}</span>
+                                        <span class="bg-neon-green text-cyber-black text-xs font-bold px-2 py-1 rounded flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                            </svg>
+                                            ${game.rating}
+                                        </span>
+                                    </div>
+                                    <h3 class="text-white font-bold text-2xl mb-2">${game.title}</h3>
+                                    <p class="text-neon-blue/90">${game.shortDescription}</p>
+                                    <button class="mt-4 px-6 py-2 bg-neon-green text-cyber-black font-bold rounded hover:bg-neon-green/90 transition-colors">Play Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // 添加点击事件
+                document.querySelectorAll('.featured-game').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const gameUrl = card.getAttribute('data-url');
+                        if (gameUrl) {
+                            window.location.href = gameUrl;
+                        }
+                    });
+                });
+            }
+        }
+
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 滚动显示动画
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            // 创建粒子效果
+            createParticles();
+            
+            // 初始化滚动显示
+            window.addEventListener('scroll', reveal);
+            reveal();
+            
+            // 初始化游戏目录
+            const catalog = new GameCatalog();
+            catalog.initialize();
+        });
+    </script>
+</body>
+</html> 

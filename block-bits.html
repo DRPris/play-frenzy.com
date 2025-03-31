@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Bits - Blocky Adventure Game | PLAY-FRENZY</title>
+    <meta name="description" content="Block Bits is a captivating blocky adventure game that combines survival, mining, and creativity. Build, explore, and survive in procedurally generated worlds!">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#0F1B2B">
+    <meta name="msapplication-TileColor" content="#0F1B2B">
+    <meta name="theme-color" content="#0F1B2B">
+    <link rel="canonical" href="https://play-frenzy.com/block-bits.html">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#0F1B2B',
+                        'cyber-purple': '#2C3E50',
+                        'cyber-black': '#000000',
+                        'neon-blue': '#00FFFF',
+                        'neon-green': '#39FF14',
+                        'neon-orange': '#FF6B35',
+                        'deep-purple': '#34495E'
+                    },
+                    fontFamily: {
+                        'manrope': ['Manrope', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #0F1B2B;
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+        }
+        
+        /* Particle effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* Binary code effect */
+        .binary-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 50%, rgba(0,255,255,0.05) 75%);
+            font-family: monospace;
+            font-size: 12px;
+            color: rgba(0,255,255,0.1);
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .binary-content {
+            animation: scrollBinary 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scrollBinary {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* Neon text effects */
+        .neon-text {
+            color: #00FFFF;
+            text-shadow: 0 0 8px rgba(0,255,255,0.3);
+            background: linear-gradient(90deg, #00FFFF, #39FF14);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Card styles */
+        .cyber-card {
+            background: rgba(44, 62, 80, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(0,255,255,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,255,255,0.2);
+        }
+
+        /* Button styles */
+        .cyber-button {
+            background: linear-gradient(45deg, #00FFFF, #39FF14);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #0F1B2B;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,255,255,0.5);
+        }
+
+        .cyber-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0,255,255,0.6);
+        }
+
+        .cyber-button:active {
+            transform: scale(0.95) translateY(2px);
+        }
+
+        /* Game container styles */
+        .game-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 56.25%;
+            border: 2px solid #00FFFF;
+            border-radius: 16px;
+            box-shadow: 0 0 32px rgba(0,255,255,0.2);
+        }
+
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Divider styles */
+        .cyber-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #34495E, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .cyber-divider::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: #00FFFF;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.5;
+        }
+        
+        /* 加载动画 */
+        .cyber-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00FFFF;
+            animation: cyber-spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes cyber-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hero section specific */
+        .hero-section {
+            min-height: 500px;
+            background: linear-gradient(rgba(15, 27, 43, 0.7), rgba(15, 27, 43, 0.9)), 
+                        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSI0OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzPC90ZXh0Pjwvc3ZnPg==');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Block animation */
+        .floating-block {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #39FF14;
+            animation: floatBlock 10s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes floatBlock {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        /* Game screenshot gallery */
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="particles" id="particles"></div>
+    <div class="binary-overlay">
+        <div class="binary-content">010101110010101010001111001010101</div>
+    </div>
+
+    <header class="relative z-10 bg-gradient-to-r from-cyber-dark to-cyber-purple shadow-lg">
+        <div class="container mx-auto px-4 py-6 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <a href="index.html" class="flex items-center gap-2">
+                        <h1 class="text-3xl md:text-4xl font-bold tracking-tight neon-text">PLAY-FRENZY</h1>
+                    </a>
+                    <p class="mt-2 text-lg text-neon-blue/80">The home of Block Bits adventure!</p>
+                </div>
+                <nav class="mt-4 md:mt-0">
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-neon-green transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-neon-green transition-colors">About</a></li>
+                        <li><a href="#features" class="hover:text-neon-green transition-colors">Features</a></li>
+                        <li><a href="#gallery" class="hover:text-neon-green transition-colors">Gallery</a></li>
+                        <li><a href="#play" class="hover:text-neon-green transition-colors">Play Now</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative mb-12">
+        <!-- Floating blocks for decoration -->
+        <div class="floating-block" style="top: 10%; left: 10%; background-color: #00FFFF;"></div>
+        <div class="floating-block" style="top: 20%; left: 80%; background-color: #39FF14; animation-delay: 2s;"></div>
+        <div class="floating-block" style="top: 70%; left: 15%; background-color: #FF6B35; animation-delay: 1s;"></div>
+        <div class="floating-block" style="top: 60%; left: 75%; background-color: #00FFFF; animation-delay: 3s;"></div>
+        
+        <div class="container mx-auto px-4 py-16 text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="neon-text">BLOCK BITS</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-neon-blue/90 max-w-3xl mx-auto mb-10">
+                A captivating blocky adventure that combines survival, mining, and boundless creativity
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#play" class="cyber-button text-lg px-8 py-4">Play Now</a>
+                <a href="#about" class="bg-cyber-purple/60 hover:bg-cyber-purple text-white text-lg px-8 py-4 rounded-lg transition-colors">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl relative z-10">
+        <!-- About Section -->
+        <section id="about" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 neon-text">About Block Bits</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-neon-blue/90 mb-4">Block Bits is a captivating blocky adventure game that combines the best elements of survival, mining, and creativity. With its charming low-poly aesthetic and intuitive gameplay, Block Bits offers endless possibilities for players of all ages.</p>
+                        <p class="text-neon-blue/90 mb-4">Explore vast procedurally generated worlds, gather resources, craft tools and structures, and survive challenging environments. Whether you want to build magnificent structures or embark on exciting adventures, the choice is yours!</p>
+                        <p class="text-neon-blue/90 mb-4">Every world in Block Bits is unique, with different biomes, landscapes, and resources to discover. From towering mountains to deep caves filled with valuable minerals, there's always something new to explore and uncover.</p>
+                    </div>
+                    <div>
+                        <div class="bg-cyber-purple rounded-lg p-6 mb-6">
+                            <h3 class="text-xl font-semibold text-neon-indigo mb-3">Game Details</h3>
+                            <ul class="space-y-2">
+                                <li><span class="font-medium">Genre:</span> Survival, Crafting, Adventure</li>
+                                <li><span class="font-medium">Developer:</span> Kay Lousberg</li>
+                                <li><span class="font-medium">Features:</span> Block building, resource gathering, crafting</li>
+                                <li><span class="font-medium">Platform:</span> Browser (PC & Mobile)</li>
+                                <li><span class="font-medium">Players:</span> Single-player</li>
+                                <li><span class="font-medium">Release Date:</span> 2023</li>
+                            </ul>
+                        </div>
+                        <div class="bg-cyber-purple/50 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold mb-2 text-neon-blue">What Players Say</h4>
+                            <blockquote class="text-neon-blue/90 italic">
+                                "Block Bits combines everything I love about survival and building games into one addictive package. I've spent hours creating my dream castle and exploring the vast world!"
+                                <footer class="text-right text-neon-green mt-2">- GamerXplorer22</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 neon-text">Game Features</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">🏗️ Creative Building</div>
+                        <p class="text-neon-blue/90">Build anything you can imagine with a wide variety of blocks and materials. From simple shelters to elaborate castles, the only limit is your creativity.</p>
+                    </div>
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">⛏️ Mining & Exploration</div>
+                        <p class="text-neon-blue/90">Dig deep to discover rare resources and hidden treasures. Each cave system is uniquely generated with various minerals and surprises to find.</p>
+                    </div>
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">🔨 Crafting System</div>
+                        <p class="text-neon-blue/90">Create tools, weapons, and items to help you on your journey. Combine different materials to unlock new recipes and enhance your equipment.</p>
+                    </div>
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">🌍 Procedural Worlds</div>
+                        <p class="text-neon-blue/90">Every world is unique with different biomes and landscapes to explore. From forests and mountains to deserts and oceans, each environment offers new challenges.</p>
+                    </div>
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">🎮 Intuitive Controls</div>
+                        <p class="text-neon-blue/90">Easy to learn controls for both desktop and mobile players. The game adapts to your device, ensuring a smooth experience however you choose to play.</p>
+                    </div>
+                    <div class="border border-neon-purple rounded-lg p-5 hover:shadow-md transition-shadow">
+                        <div class="text-neon-blue text-xl mb-2">🎯 Game Objectives</div>
+                        <p class="text-neon-blue/90">Survive, build, and complete challenges to progress through the game. Optional quests and achievements provide goals for players who want more structure.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-cyber-purple/30 p-5 rounded-lg">
+                    <h3 class="text-xl font-bold mb-3 text-neon-orange">Advanced Features</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="text-neon-green font-semibold mb-2">Dynamic Weather System</h4>
+                            <p class="text-neon-blue/90">Experience changing weather patterns that affect gameplay. From gentle rain to powerful storms, the environment reacts dynamically to weather conditions.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-neon-green font-semibold mb-2">Day-Night Cycle</h4>
+                            <p class="text-neon-blue/90">Plan your activities around the in-game day-night cycle. Different challenges and opportunities present themselves depending on the time of day.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-neon-green font-semibold mb-2">Resource Management</h4>
+                            <p class="text-neon-blue/90">Balance your resources carefully to survive in challenging environments. Some biomes have abundant resources while others require more strategic planning.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-neon-green font-semibold mb-2">Progressive Technology</h4>
+                            <p class="text-neon-blue/90">Advance through technology tiers by discovering and crafting more sophisticated tools and structures. Unlock new capabilities as you progress.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section id="gallery" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 neon-text">Game Gallery</h2>
+                <p class="text-neon-blue/90 mb-6">Explore the visual wonders of Block Bits through our screenshot gallery. From expansive landscapes to intricate creations, get a glimpse of what awaits you!</p>
+                
+                <div class="screenshot-gallery">
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIEZvcmVzdCBCaW9tZTwvdGV4dD48L3N2Zz4=" alt="Forest Biome" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Lush Forest Biome</p>
+                        </div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIENhc3RsZTwvdGV4dD48L3N2Zz4=" alt="Player Castle" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Medieval Castle Creation</p>
+                        </div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIENhdmU8L3RleHQ+PC9zdmc+" alt="Cave Exploration" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Underground Cave Exploration</p>
+                        </div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIENyYWZ0aW5nPC90ZXh0Pjwvc3ZnPg==" alt="Crafting Interface" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Crafting Interface</p>
+                        </div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIE1vdW50YWluPC90ZXh0Pjwvc3ZnPg==" alt="Mountain View" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Mountain Landscape</p>
+                        </div>
+                    </div>
+                    <div class="screenshot">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzIFZpbGxhZ2U8L3RleHQ+PC9zdmc+" alt="Village" class="w-full h-auto object-cover">
+                        <div class="p-2 bg-cyber-purple/60">
+                            <p class="text-center text-sm">Player-Built Village</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-cyber-purple/30 p-4 rounded-lg text-center">
+                    <h3 class="text-xl font-bold mb-3 text-neon-orange">Share Your Creations</h3>
+                    <p class="text-neon-blue/90 mb-4">Built something amazing in Block Bits? Share your creations with the community!</p>
+                    <a href="#" class="cyber-button">Join Community</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Play Now Section -->
+        <section id="play" class="mb-12 reveal">
+            <div class="cyber-card p-6">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 neon-text">Play Block Bits</h2>
+                <p class="text-neon-blue/90 mb-6">Start your blocky adventure right now! Jump into a world of endless possibilities and creative freedom.</p>
+                
+                <div class="game-container">
+                    <div class="relative">
+                        <iframe src="about:blank" class="responsive-iframe" allowfullscreen id="game-iframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
+                        
+                        <!-- Loading Message -->
+                        <div id="loading-overlay" class="absolute inset-0 bg-cyber-dark/90 flex flex-col items-center justify-center z-10">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMzNDQ5NUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CbG9jayBCaXRzPC90ZXh0Pjwvc3ZnPg==" alt="Block Bits" class="w-40 h-40 mb-4">
+                            <h3 class="text-neon-green text-xl mb-4">Launching Block Bits...</h3>
+                            <div class="flex items-center mb-6">
+                                <div class="w-64 bg-cyber-black/50 h-4 rounded-full overflow-hidden">
+                                    <div id="loading-progress" class="bg-gradient-to-r from-neon-blue to-neon-green h-full" style="width: 10%"></div>
+                                </div>
+                                <span id="loading-percent" class="ml-3 text-neon-green">10%</span>
+                            </div>
+                            
+                            <div class="mt-6 space-y-4 text-center max-w-lg">
+                                <p class="text-neon-blue/90">For the best Block Bits experience:</p>
+                                <div class="bg-cyber-purple/20 p-3 rounded-lg text-left">
+                                    <ul class="list-disc pl-5 text-neon-blue/90 space-y-2">
+                                        <li>Use a modern browser like Chrome, Firefox, or Edge</li>
+                                        <li>Enable JavaScript and WebGL in your browser settings</li>
+                                        <li>For mobile devices, rotate to landscape orientation</li>
+                                        <li>Adjust the volume for the best audio experience</li>
+                                    </ul>
+                                </div>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <button id="retry-button" class="cyber-button">Retry Loading</button>
+                                    <a href="#" target="_blank" class="cyber-button bg-neon-orange">Download Game Client</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-4 bg-cyber-purple/40 rounded-lg backdrop-blur">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 text-neon-green">How to Play</h3>
+                            <ol class="list-decimal pl-5 space-y-2 text-neon-blue/90">
+                                <li>Use WASD or arrow keys to move your character</li>
+                                <li>Click to break blocks and gather resources</li>
+                                <li>Open your inventory (E key) to craft items</li>
+                                <li>Place blocks by right-clicking</li>
+                                <li>Press ESC to access the game menu</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 text-neon-green">Starting Tips</h3>
+                            <ul class="list-disc pl-5 space-y-2 text-neon-blue/90">
+                                <li>Gather wood first to craft basic tools</li>
+                                <li>Build a shelter before nightfall</li>
+                                <li>Mine stone to upgrade your tools</li>
+                                <li>Collect food to maintain your energy</li>
+                                <li>Explore caves carefully and bring torches</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-neon-blue/90 mb-4">Want to play Block Bits with friends or on other devices?</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#" class="px-4 py-2 bg-cyber-purple/60 hover:bg-cyber-purple text-white rounded transition-colors">
+                            <span>Desktop Version</span>
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-cyber-purple/60 hover:bg-cyber-purple text-white rounded transition-colors">
+                            <span>Mobile App</span>
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-cyber-purple/60 hover:bg-cyber-purple text-white rounded transition-colors">
+                            <span>Community Server</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-cyber-black text-white py-8 relative z-10">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">PLAY-FRENZY</h3>
+                    <p class="text-neon-blue/80">Your destination for the best cyber-gaming experiences.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-neon-blue/80 hover:text-neon-green transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-neon-blue/80 hover:text-neon-green transition-colors">About</a></li>
+                        <li><a href="#features" class="text-neon-blue/80 hover:text-neon-green transition-colors">Features</a></li>
+                        <li><a href="#gallery" class="text-neon-blue/80 hover:text-neon-green transition-colors">Gallery</a></li>
+                        <li><a href="#play" class="text-neon-blue/80 hover:text-neon-green transition-colors">Play Now</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 neon-text">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-neon-blue/80 hover:text-neon-green transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-neon-blue/80 hover:text-neon-green transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-neon-blue/80 hover:text-neon-green transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cyber-divider"></div>
+            <div class="text-center text-neon-blue/60">
+                <p>&copy; 2025 PLAY-FRENZY.COM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Scroll reveal
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Simulate game loading progress
+        function simulateLoading() {
+            let progress = 10;
+            const progressBar = document.getElementById('loading-progress');
+            const percentText = document.getElementById('loading-percent');
+            
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 10);
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    // You would typically hide the loading overlay here if the game actually loaded
+                    // For this example, we'll keep it visible
+                }
+                progressBar.style.width = progress + '%';
+                percentText.textContent = progress + '%';
+            }, 500);
+        }
+
+        // Initialize on document load
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            window.addEventListener('scroll', reveal);
+            reveal();
+            simulateLoading();
+            
+            // Set up retry button
+            document.getElementById('retry-button').addEventListener('click', () => {
+                document.getElementById('loading-progress').style.width = '10%';
+                document.getElementById('loading-percent').textContent = '10%';
+                simulateLoading();
+            });
+        });
+    </script>
+</body>
+</html> 
